@@ -22,16 +22,18 @@ from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 url = URL("http://www.reddit.com/top/")
 dom = DOM(url.download(cached=True))
 
-print dom.body.content
 
-for e in dom.by_tag("div.entry")[:5]: # Top 5 reddit entries.
-    print e
-    for a in e.by_tag("a.title")[:1]: # First <a class="title"> in entry.
-        print 'after a'
-        print a
-        print plaintext(a.content)
-        print a.attrs["href"]
-print
+# print dom.body.content
+#
+# for e in dom.by_tag("div.entry")[:5]: # Top 5 reddit entries.
+#     print e
+#     for a in e.by_tag("a.title")[:1]: # First <a class="title"> in entry.
+#         #print 'after a'
+#         #print a
+#         #print plaintext(a.content)
+#         #print a.attrs["href"]
+# print
+
 
 # The links in the HTML source code may be relative,
 # e.g., "../img.jpg" instead of "www.domain.com/img.jpg".
@@ -81,10 +83,10 @@ for link in DOM(url.download()).by_tag("a"):
 dom = DOM(URL("http://www.clips.ua.ac.be").download())
 kw = dom.head.by_attr(name="keywords")[0]
 kw = kw.attrs["content"]
-print kw
-print
+#print kw
+#print
 kw = [x.strip() for x in kw.split(",")]
-print kw
+#print kw
 print
 
 # If you know CSS, you can also use short and handy CSS selectors:
@@ -92,5 +94,5 @@ print
 #Element(selector) will return a list of nested elements that match the given string.
 dom = DOM(URL("http://www.clips.ua.ac.be").download())
 for e in dom("div#sidebar-left li div:first-child span"):
-    print plaintext(e.content)
+    #print plaintext(e.content)
     print
