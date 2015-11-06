@@ -290,8 +290,8 @@ def scrape_movie_page(dom):
             rating = ratings.content
 
         for y in p.by_tag('span')[3:4]:
-            n_ratings = y
-
+            n_ratings = y.content
+    
     #for a in dom.by_tag(a.itemprop)
 
 
