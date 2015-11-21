@@ -4,34 +4,23 @@ date =[]
 array2 =[]
 
 var array = document.getElementById('data').value
-console.log(array)
+
 var array = JSON.parse(array);
 console.log(array)
-console.log(array[0][0])
-console.log(array[0][1])
-// for (var i = 0; i < 366; i++){
-//   array2.push(array[i].split(','));
-// }
-//
-// for (var i = 0; i < 366; i++){
-//   tempertature.push(array2[i][1]);
-//   date.push(array2[i][0]);
-// }
-// maak de canvas aan
+console.log(new Date(19960505))
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 width = 1000;
 height = 500;
 ctx.canvas.width = width;
 ctx.canvas.height = height;
-// opletten ;!
 
 
 transformx = createTransform([0,450],[0,width]);
 transformy = createTransform([-200,400],[height,0]);
 
 distanceFromLeft = transformx(30)
-console.log('hello')
 // y = 0
 ctx.strokeRect(distanceFromLeft,transformy(0),transformx(366),1)
 //x-as
@@ -77,15 +66,12 @@ ctx.strokeRect(distanceFromLeft-5,transformy(-100),5,1)
 k = 30
 for ( var i = 0 ; i < 366; i++){
   ctx.lineTo(transformx(k),transformy(array[i][1]));
-  //ctx.lineTo(transformx(k),transformy(tempertature[i]))
+  ctx.strokeStyle = 'lightgray';
   k++
 };
 ctx.stroke()
-ctx.font = "48px serif";
-ctx.fillText("Maximum Temperature in the Bild(NL) 1996", 90, 50);
-
-
-
+ctx.font = "30px serif";
+ctx.fillText("Maximum Temperature in the Bild(NL) 1996", 160, 30);
 
 function createTransform(domain, range){
 	// domain is a two-element array of the domain's bounds
@@ -102,12 +88,6 @@ function createTransform(domain, range){
 	};
 }
 
-inversecreateTransformx = inversecreateTransform([0,width],[0,450]);
-
-
-// to use this for instance:
-var transform = createTransform([10, 20], [10, 20]);
-//console.log(transform(15)); //should return 15!!
 ctx.font = "30px serif"
 ctx.rotate((Math.PI/180*-90))
 ctx.fillText('Temperature in Celcius',transformx(-170),transformy(355))
@@ -119,53 +99,78 @@ context.canvas.height = height;
 var rect = canvas2.getBoundingClientRect();
 console.log(rect.left)
 function showCoords(event) {
-    var x = event.clientX;
-    var y = event.clientY;
-    context.clearRect(0,0,width,height)
-    var coor = "X coords: " + x + ", Y coords: " + y;
-    document.getElementById("demo").innerHTML = coor;
+     x = event.clientX;
+     y = event.clientY;
+     context.clearRect(0,0,width,height)
+    // var coor = "X coords: " + x + ", Y coords: " + y;
+    // document.getElementById("demo").innerHTML = coor;
     context.beginPath();
-    context.moveTo(x,466);
-    context.lineTo(x,0);
+    context.moveTo(x,418);
+    context.lineTo(x,50);
     context.stroke();
     context.beginPath();
-    context.moveTo(0,transformy(array[Math.round((x/813)*366-30)][1]));// aan data zitten en stuff math.round
-    context.lineTo(1000,transformy(array[Math.round((x/813)*366-30)][1]));// x- lengte gebied * aantal punten - afstand van links
+    context.moveTo(distanceFromLeft,transformy(array[Math.round((x/813)*366-30)][1]));
+    context.lineTo(888,transformy(array[Math.round((x/813)*366-30)][1]));
     context.stroke();
-    // console.log(document.getElementById("tagH").innerHTML)
-    // console.log((array[Math.round((x/813)*366-30)][0]))
-    document.getElementById("tagH").innerHTML = (array[Math.round((x/813)*366-30)][0]);
-    document.getElementById("tagV").innerHTML = (array[Math.round((x/813)*366-30)][1]); // innerHTML veranderen!!
-    document.getElementById("tagH").style.top = pixeltransform(y); // functie aanmaken die string maakt met coordinaten vanwege vage zooi
-    document.getElementById("tagH").style.left = pixeltransform(x);
-    document.getElementById("tagV").style.top = pixeltransform(y); // functie aanmaken die string maakt met coordinaten vanwege vage zooi
-    document.getElementById("tagV").style.left = pixeltransform(x);
+    document.getElementById("tagH").innerHTML = "";
+    document.getElementById("tagV").innerHTML = "";
+
+
 
 }
-//transform rotate in css!!
+// clear de lijnen
 function clearCoor() {
-    document.getElementById("demo").innerHTML = "";
+    document.getElementById("canvaslijn").innerHTML = "";
 }
 console.log(transformx(75))
 console.log(transformx(880))
-//g = (event.clientX-rect.left)/(rect.right-rect.left)*width;
+// zet alles om in pixels voor de variabelen
 function pixeltransform(number){
 
-  var b = "px"
-  return b.concat(number.toString())// werkt niet lulz??
+  t = "px"
+  c = number.toString().concat(t);
+
+  return  c; // werkt niet lulz??
+
 }
+  // pas de variabelen aan zodat dit de juiste datum en temperatuur geeft + zet het op de juiste plaats
 
-function inversecreateTransform(domain, range){
-	// domain is a two-element array of the domain's bounds
-	// range is a two-element array of the range's bounds
-	// implement the actual calculation here b = range[0] - a*domain[0]
-	// a = range[1]-range[0]/domain[1]-domain[0]
-	var alpha = (range[1]-range[0])/(domain[1]-domain[0]) ;
-	var beta = range[0]-alpha*domain[0];
+    document.getElementById('canvas2').onmouseout = function () {
+        timer = setTimeout(function () {
+          document.getElementById("tagH").innerHTML = (array[Math.round((x/813)*366-30)][0]);
+          document.getElementById("tagV").innerHTML = (array[Math.round((x/813)*366-30)][1])/10;
+          document.getElementById("tagH").style.top = pixeltransform(transformy(array[Math.round((x/813)*366-30)][1])+60);
+          document.getElementById("tagH").style.left = pixeltransform(x+30);//pixeltransform(x);
+          document.getElementById("tagV").style.top = pixeltransform(transformy(array[Math.round((x/813)*366-30)][1]));
+          document.getElementById("tagV").style.left = pixeltransform(x-50);
 
-	// get rid of the padding of the range
-	return function(x){
+        }, 200);
+    }
 
-	return ((alpha-beta)/x);
-	};
-}
+    var timeoutID;
+    // reset de timer als er wel beweging is zo niet dan word de data weergeven na 1 seconde
+    function setup() {
+        this.addEventListener("mousemove", resetTimer, false);
+        startTimer();
+    }
+    setup();
+
+    function startTimer() {
+        // roept na 1 seconde goInactive aan
+        timeoutID = window.setTimeout(goInactive, 1000);
+    }
+
+    function resetTimer(e) {
+        window.clearTimeout(timeoutID);
+        startTimer()
+    }
+
+    function goInactive() {
+      document.getElementById("tagH").innerHTML = (array[Math.round((x/813)*366-30)][0]);
+      document.getElementById("tagV").innerHTML = (array[Math.round((x/813)*366-30)][1])/10;
+      document.getElementById("tagH").style.top = pixeltransform(transformy(array[Math.round((x/813)*366-30)][1])+60);
+      document.getElementById("tagH").style.left = pixeltransform(x+30);//pixeltransform(x);
+      document.getElementById("tagV").style.top = pixeltransform(transformy(array[Math.round((x/813)*366-30)][1]));
+      document.getElementById("tagV").style.left = pixeltransform(x-50);
+
+    }
