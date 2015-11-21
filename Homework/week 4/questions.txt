@@ -1,0 +1,17 @@
+Why is it useful to encapsulate JavaScript code in a module as described in chapter 10 of Eloquent JavaScript?
+
+Dit is handiger omdat dit een beter overzicht geeft van de functie. Ook is het handig voor iemand die niet bekend is met de code omdat dit een duidelijk overzicht geeft.
+
+
+Describe what asynchronous programming is and how it differs from the style of programming you used in C and Python.
+
+asynchrononous programeren is een manier waarin alles tegelijk gerund word.
+In C en Python word alles achter elkaar gedaan(synchronous) in de volgorde van de code. Doormiddel van asynchronous programeren word alles
+gelijk gerund en word de return gegeven zodra een operatie klaar is.
+
+
+Is JSON valid JavaScript? Describe the differences between JavaScript and JSON.
+
+JSON is een string representatie van een object. Het is niet geldig in Javascript omdat niet alle JSON text geldig is in Javascript.
+Het verscil tussen javascript en JSON is dat javascript een programeertaal is en JSON een formaat is dat objects naar strings omzet.
+JSON is een language agnostic data-interchange format.
