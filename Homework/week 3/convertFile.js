@@ -22,6 +22,7 @@ ctx.canvas.height = height
 
 
 
+
 transformx = createTransform([0,450],[0,width])
 transformy = createTransform([-200,400],[height,0])
 
@@ -40,6 +41,14 @@ ctx.stroke()
 // zet alle maanden er in met een streepje
 months = ["January","February","March","April","May","June","July","August",
 "September","October","November","December"]
+k = 30
+for ( var i = 0 ; i < 366; i++){
+  ctx.lineTo(transformx(k),transformy(tempertature[i]))
+  k++
+};
+ctx.stroke()
+ctx.font = "48px serif";
+ctx.fillText("Maximum Temperature in the Bild(NL) 1996", 90, 50);
 
 for ( var l = 0; l < 12; l++){
   ctx.font = "13px serif";
@@ -69,14 +78,6 @@ ctx.fillText("-10",transformx(20),transformy(-100))
 ctx.strokeRect(distanceFromLeft-5,transformy(-100),5,1)
 
 // voor elke variabele in de array line aanmaken!
-k = 30
-for ( var i = 0 ; i < 366; i++){
-  ctx.lineTo(transformx(k),transformy(tempertature[i]))
-  k++
-};
-ctx.stroke()
-ctx.font = "48px serif";
-ctx.fillText("Maximum Temperature in the Bild(NL) 1996", 90, 50);
 
 
 
